@@ -1,7 +1,7 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { ExpressAdapter } from '@nestjs/platform-express';
-import express from 'express';
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import { ExpressAdapter } from "@nestjs/platform-express";
+import express from "express";
 
 const server = express();
 
@@ -13,9 +13,9 @@ export const createServer = async (expressInstance: any) => {
 
   // Configure CORS with allowed origins
   const allowedOrigins = [
-    process.env.FRONTEND_URL || 'http://localhost:5173',
-    'http://localhost:3000',
-    'http://localhost:5173',
+    process.env.FRONTEND_URL || "http://localhost:5173",
+    "http://localhost:3000",
+    "http://localhost:5173",
   ];
 
   app.enableCors({
@@ -23,12 +23,12 @@ export const createServer = async (expressInstance: any) => {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   });
 
   await app.init();
@@ -36,7 +36,7 @@ export const createServer = async (expressInstance: any) => {
 };
 
 // For local development
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.enableCors();
