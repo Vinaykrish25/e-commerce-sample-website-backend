@@ -10,7 +10,10 @@ export const createServer = async (expressInstance: any) => {
     AppModule,
     new ExpressAdapter(expressInstance),
   );
-  app.enableCors();
+app.enableCors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true,
+});
   await app.init();
   return app;
 };
